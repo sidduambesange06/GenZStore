@@ -1,0 +1,158 @@
+/* ==========================================================================
+   GENZSTORE - Base Styles & Typography
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--canvas);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-weight: 400;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--white);
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-smooth);
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(2.75rem, 6vw, 5.25rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+}
+
+h4 {
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+}
+
+.serif-italic {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.text-muted {
+  color: var(--text-secondary);
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--accent);
+  display: inline-block;
+  margin-bottom: var(--space-xs);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+.container-narrow {
+  width: 100%;
+  max-width: var(--container-narrow);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+.main-content {
+  flex: 1 0 auto;
+}
+
+.section-spacing {
+  padding-top: clamp(3.5rem, 7vw, 6.5rem);
+  padding-bottom: clamp(3.5rem, 7vw, 6.5rem);
+}
+
+.section-header {
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+  text-align: center;
+}
+
+.section-header.text-left {
+  text-align: left;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--border);
+  border: none;
+  margin: var(--space-xl) 0;
+}
+
+.reveal-fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-smooth);
+}
+
+.reveal-fade-up.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}

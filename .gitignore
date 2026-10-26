@@ -1,0 +1,26 @@
+# Dependencies (none currently, but for future)
+node_modules/
+
+# Environment secrets — NEVER commit these
+.env
+.env.local
+.env.production
+.env.*
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor folders (not source code)
+.cursor/
+.agents/
+.kiro/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build output (none currently)
+dist/
+build/

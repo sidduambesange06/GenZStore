@@ -1,0 +1,16 @@
+{
+  "name": "genzstore",
+  "version": "1.0.0",
+  "description": "GENZSTORE — Modern Luxury Clothing E-Commerce. Quiet luxury, sculpted silhouette.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["fashion", "ecommerce", "clothing", "luxury", "india"],
+  "author": "GENZSTORE Development Team",
+  "license": "UNLICENSED"
+}
