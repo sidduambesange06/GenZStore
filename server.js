@@ -1,4 +1,4 @@
-﻿/**
+/**
  * GENZSTORE - Minimal Production-Ready Server
  * Zero dependencies - Pure Node.js Standard Library
  * Serves static storefront + Mock E-Commerce REST API
@@ -7,7 +7,6 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const url = require('url');
 
 const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = __dirname;
@@ -21,11 +20,15 @@ const MIME_TYPES = {
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
   '.svg': 'image/svg+xml',
-  '.ico': 'image/x-icon'
+  '.ico': 'image/x-icon',
+  '.webp': 'image/webp',
+  '.woff2': 'font/woff2',
+  '.woff': 'font/woff',
+  '.ttf': 'font/ttf'
 };
 
 const server = http.createServer((req, res) => {
-  const parsedUrl = url.parse(req.url, true);
+  const parsedUrl = new URL(req.url, 'http://localhost');
   const pathname = parsedUrl.pathname;
 
   // --- API Routes ---
@@ -72,7 +75,6 @@ const server = http.createServer((req, res) => {
 
   // --- Static File Serving ---
   let filePath = path.join(PUBLIC_DIR, pathname === '/' ? 'index.html' : pathname);
-  const ext = path.extname(filePath).toLowerCase();
 
   // Security: prevent directory traversal
   if (!filePath.startsWith(PUBLIC_DIR)) {
@@ -80,29 +82,48 @@ const server = http.createServer((req, res) => {
     return res.end('Access Denied');
   }
 
-  fs.stat(filePath, (err, stats) => {
-    if (err || !stats.isFile()) {
-      if (req.headers.accept && req.headers.accept.includes('text/html')) {
-        const notFoundPath = path.join(PUBLIC_DIR, 'index.html');
-        res.writeHead(200, { 'Content-Type': 'text/html; charset=UTF-8' });
-        return fs.createReadStream(notFoundPath).pipe(res);
-      }
-      res.writeHead(404, { 'Content-Type': 'text/plain' });
-      return res.end('File Not Found');
-    }
-
-    const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+  const serveStream = (targetPath, contentType) => {
     res.writeHead(200, {
       'Content-Type': contentType,
       'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
       'Pragma': 'no-cache',
       'Expires': '0'
     });
-    fs.createReadStream(filePath).pipe(res);
+    fs.createReadStream(targetPath).pipe(res);
+  };
+
+  fs.stat(filePath, (err, stats) => {
+    if (!err && stats.isFile()) {
+      const ext = path.extname(filePath).toLowerCase();
+      return serveStream(filePath, MIME_TYPES[ext] || 'application/octet-stream');
+    }
+
+    // Clean URL support (e.g. /shop -> /shop.html)
+    const htmlCandidate = filePath + '.html';
+    if (fs.existsSync(htmlCandidate)) {
+      return serveStream(htmlCandidate, MIME_TYPES['.html']);
+    }
+
+    if (req.headers.accept && req.headers.accept.includes('text/html')) {
+      const notFoundPath = path.join(PUBLIC_DIR, 'index.html');
+      return serveStream(notFoundPath, MIME_TYPES['.html']);
+    }
+
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    return res.end('File Not Found');
   });
 });
 
-// Bind 0.0.0.0 so Docker/Fly.io can route external traffic into the container
-server.listen(PORT, '0.0.0.0', () => {
-  console.log('GENZSTORE running on port ' + PORT);
-});
+// Support both standard numeric port and cPanel Passenger unix domain sockets
+const isNumericPort = !isNaN(PORT) && !isNaN(parseFloat(PORT));
+if (isNumericPort) {
+  server.listen(Number(PORT), () => {
+    console.log('GENZSTORE running on port ' + PORT);
+  });
+} else {
+  server.listen(PORT, () => {
+    console.log('GENZSTORE running on socket ' + PORT);
+  });
+}
+
+module.exports = server;

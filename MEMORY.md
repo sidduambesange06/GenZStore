@@ -39,10 +39,11 @@ MEMORY.md                     This file
 - Free shipping threshold: Rs.1,500
 - Promo code: GENZ10 = 10% off
 - Delivery integration: intentionally skipped (Phase 3)
+- Deployment target: MilesWeb cPanel (Apache / LiteSpeed static `public_html` or Node.js via Phusion Passenger)
 
 ## Pending From Client
 1. Domain name
-2. Hosting plan (VPS recommended)
+2. MilesWeb cPanel credentials / active domain setup
 3. Razorpay Live API Keys (Key ID + Key Secret + Webhook Secret)
 4. Delivery partner (Shiprocket recommended)
 5. Business email for order confirmations

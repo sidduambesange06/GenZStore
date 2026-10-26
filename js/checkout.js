@@ -55,6 +55,11 @@ function renderCheckoutSummary() {
   if (subtotalEl) subtotalEl.textContent = CartManager.formatPrice(subtotal);
   if (shippingEl) shippingEl.textContent = shipping === 0 ? 'Complimentary' : CartManager.formatPrice(shipping);
   if (totalEl) totalEl.textContent = CartManager.formatPrice(total);
+
+  const payBtn = document.getElementById('razorpay-pay-button');
+  if (payBtn && total > 0) {
+    payBtn.textContent = `Pay ${CartManager.formatPrice(total)} with Razorpay`;
+  }
 }
 
 async function handleInitiatePayment(e) {
@@ -65,8 +70,8 @@ async function handleInitiatePayment(e) {
   const phoneInput = document.getElementById('cust-phone');
   const addressInput = document.getElementById('cust-address');
 
-  if (!nameInput?.value || !emailInput?.value || !phoneInput?.value) {
-    alert('Please fill in your name, email, and contact number.');
+  if (!nameInput?.value || !emailInput?.value || !phoneInput?.value || !addressInput?.value) {
+    alert('Please fill in your name, email, contact number, and delivery address.');
     return;
   }
 
@@ -149,6 +154,12 @@ async function handleInitiatePayment(e) {
       window.location.href = `order-confirmation.html?${params.toString()}`;
     }
   };
+
+  // Demo fallback when using placeholder test credentials
+  if (!options.key || options.key.includes('YourTestKeyId')) {
+    simulateTestPayment(totalAmountInINR, nameInput.value);
+    return;
+  }
 
   try {
     const rzp = new Razorpay(options);
