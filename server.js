@@ -41,8 +41,8 @@ const server = http.createServer((req, res) => {
     return res.end();
   }
 
-  // --- API Routes ---
-  if (pathname === '/api/health') {
+  // --- API Routes & Health Probes ---
+  if (pathname === '/api/health' || pathname === '/health' || pathname === '/healthz' || pathname === '/ping') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     return res.end(JSON.stringify({ status: 'ok', brand: 'GENZSTORE', location: 'Mumbai' }));
   }
@@ -124,11 +124,11 @@ const server = http.createServer((req, res) => {
   });
 });
 
-// Support both standard numeric port and cPanel Passenger unix domain sockets
+// Support both standard numeric port (Docker/VPS bound to 0.0.0.0) and cPanel Passenger unix domain sockets
 const isNumericPort = !isNaN(PORT) && !isNaN(parseFloat(PORT));
 if (isNumericPort) {
-  server.listen(Number(PORT), () => {
-    console.log('GENZSTORE running on port ' + PORT);
+  server.listen(Number(PORT), '0.0.0.0', () => {
+    console.log(`GENZSTORE running on port ${PORT} (0.0.0.0)`);
   });
 } else {
   server.listen(PORT, () => {
