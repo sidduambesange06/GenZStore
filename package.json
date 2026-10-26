@@ -4,9 +4,11 @@
   "description": "GENZSTORE - Modern Luxury Clothing E-Commerce",
   "main": "server.js",
   "scripts": {
+    "build": "echo \"GENZSTORE ready\"",
     "start": "node server.js",
     "dev": "node server.js"
   },
+  "dependencies": {},
   "engines": {
     "node": ">=18.0.0"
   },
