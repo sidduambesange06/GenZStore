@@ -9,13 +9,15 @@
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-  # Clean URLs: map /shop to /shop.html, /checkout to /checkout.html, etc.
+  # Clean URLs: map /shop to /shop.html, /checkout to /checkout.html, etc. (excluding /api)
+  RewriteCond %{REQUEST_URI} !^/api
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME}.html -f
   RewriteRule ^(.*)$ $1.html [L]
 
-  # Fallback to index.html for unmatched routes
+  # Fallback to index.html for unmatched non-API routes
+  RewriteCond %{REQUEST_URI} !^/api
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^ index.html [L]
