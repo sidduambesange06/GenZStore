@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Concierge & Client Care — GENZSTORE</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .contact-hero {
+      padding: clamp(3rem, 6vw, 5rem) 0 2rem;
+      text-align: center;
+    }
+    .concierge-pills {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 2.5rem 0 3.5rem;
+    }
+    @media (min-width: 768px) {
+      .concierge-pills {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    .concierge-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--duration-fast);
+    }
+    .concierge-card:hover, .concierge-card.active {
+      border-color: var(--accent);
+      background: var(--white);
+      transform: translateY(-2px);
+    }
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4rem;
+      margin-bottom: 5rem;
+    }
+    @media (min-width: 992px) {
+      .contact-layout {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
+    }
+    .form-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 2.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Marquee Ticker -->
+  <div class="announcement-bar">
+    <div class="ticker-track">
+      <span>VIP Styling Consultations Available</span>
+      <span>•</span>
+      <span>30-Day Complimentary Exchanges</span>
+      <span>•</span>
+      <span>VIP Styling Consultations Available</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand-logo">GENZSTORE</a>
+
+      <div class="header-left">
+        <button class="menu-toggle" aria-label="Toggle Navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="desktop-nav">
+          <a href="shop.html?gender=women" class="nav-link">Women</a>
+          <a href="shop.html?gender=men" class="nav-link">Men</a>
+          <a href="shop.html" class="nav-link">Shop All</a>
+          <a href="about.html" class="nav-link">In-House Studio</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+      </div>
+
+      <div class="header-right">
+        <button type="button" class="header-action-btn search-toggle-btn" aria-label="Search Collection" title="Search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+        <button type="button" class="header-action-btn wishlist-toggle-btn" aria-label="Saved Pieces" title="Saved Pieces">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="wishlist-count-badge">0</span>
+        </button>
+        <a href="cart.html" class="header-action-btn" aria-label="Shopping Bag" title="Shopping Bag">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count-badge">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer">
+    <button class="drawer-close" style="align-self: flex-end; padding: 0.5rem;" aria-label="Close Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <div class="mobile-nav-links">
+      <a href="index.html">Home</a>
+      <a href="shop.html?gender=women">Women's Collection</a>
+      <a href="shop.html?gender=men">Men's Collection</a>
+      <a href="shop.html">Shop All</a>
+      <a href="about.html">In-House Studio</a>
+      <a href="contact.html">Contact</a>
+      <a href="#" class="wishlist-toggle-btn">Saved Pieces (<span class="mobile-wishlist-count">0</span>)</a>
+      <a href="cart.html">Shopping Bag (<span class="mobile-cart-count">0</span>)</a>
+      <a href="checkout.html">Direct Checkout</a>
+    </div>
+  </div>
+
+  <main class="main-content container">
+    <div class="contact-hero reveal-fade-up">
+      <span class="eyebrow">Client Services</span>
+      <h1>GenZStore Concierge</h1>
+      <p style="color: var(--text-secondary); max-width: 500px; margin: 1rem auto 0; font-size: 0.95rem;">
+        Whether you require styling guidance, size measurement advice, or custom order inquiries, our salon consultants are at your disposal.
+      </p>
+    </div>
+
+    <!-- Quick Concierge Category Cards -->
+    <div class="concierge-pills reveal-fade-up">
+      <div class="concierge-card active" onclick="setSubject('Personal Styling & Fit Advice')">
+        <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Personal Styling</div>
+        <div style="font-size: 0.75rem; color: var(--text-secondary);">Fit & Wardrobe curation</div>
+      </div>
+      <div class="concierge-card" onclick="setSubject('Order Tracking & Status')">
+        <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Order Dispatch</div>
+        <div style="font-size: 0.75rem; color: var(--text-secondary);">Courier tracking & updates</div>
+      </div>
+      <div class="concierge-card" onclick="setSubject('Returns & Size Exchange')">
+        <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Returns & Exchanges</div>
+        <div style="font-size: 0.75rem; color: var(--text-secondary);">30-day effortless service</div>
+      </div>
+      <div class="concierge-card" onclick="setSubject('Bespoke & Private Appointments')">
+        <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Private Salon</div>
+        <div style="font-size: 0.75rem; color: var(--text-secondary);">Bespoke fittings & styling</div>
+      </div>
+    </div>
+
+    <div class="contact-layout">
+      <!-- Contact Form -->
+      <div class="form-box reveal-fade-up">
+        <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Send an Inquiry</h3>
+        <form id="concierge-form" onsubmit="event.preventDefault(); CartManager.showToast('Your message was received by our concierge.'); this.reset();">
+          <div style="margin-bottom: 1.25rem;">
+            <label style="display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; margin-bottom: 0.4rem;">Full Name</label>
+            <input type="text" class="newsletter-input" style="width: 100%;" placeholder="Aarav Sharma" required>
+          </div>
+          <div style="margin-bottom: 1.25rem;">
+            <label style="display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; margin-bottom: 0.4rem;">Email Address</label>
+            <input type="email" class="newsletter-input" style="width: 100%;" placeholder="aarav@domain.com" required>
+          </div>
+          <div style="margin-bottom: 1.25rem;">
+            <label style="display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; margin-bottom: 0.4rem;">Topic / Subject</label>
+            <input type="text" id="contact-subject" class="newsletter-input" style="width: 100%;" value="Personal Styling & Fit Advice" required>
+          </div>
+          <div style="margin-bottom: 1.75rem;">
+            <label style="display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; margin-bottom: 0.4rem;">Your Message</label>
+            <textarea class="newsletter-input" style="width: 100%; height: 130px; resize: vertical;" placeholder="How may our stylists assist you?" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full" style="padding: 1.15rem;">
+            Transmit Message
+          </button>
+        </form>
+      </div>
+
+      <!-- FAQ & Salon Info -->
+      <div class="reveal-fade-up" id="faq">
+        <span class="eyebrow">Frequently Asked</span>
+        <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem;">Client Care Inquiries</h3>
+
+        <div class="accordion-item is-open">
+          <button class="accordion-trigger">
+            <span>What payment methods are supported?</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-content">
+            We partner with <strong>Razorpay</strong> to process payments securely. We accept all major UPI applications (GPay, PhonePe, Paytm, CRED), Visa, Mastercard, RuPay, American Express, Netbanking across 50+ Indian banks, and cardless EMI.
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger">
+            <span>What is the return and exchange window?</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-content">
+            We offer 30-day effortless returns and complimentary size exchanges on unworn garments with original security tags and dustbag intact. Refunds are routed directly back via Razorpay within 2–5 business days.
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger">
+            <span>How do I determine my size?</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-content">
+            Our sizing follows relaxed European contemporary tailoring. You can consult our detailed measurement guide on every product page, or contact our concierge stylists for custom recommendations.
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger">
+            <span>Where are GenZStore garments woven?</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-content">
+            Our raw textiles are woven in certified heritage mills across Lyon, France, and southern India, before being hand-finished in our Mumbai in-house production studio.
+          </div>
+        </div>
+
+        <!-- Studio Address Card -->
+        <div style="margin-top: 2.5rem; padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm);">
+          <div style="font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 0.5rem;">GENZSTORE Flagship Salon & Studio</div>
+          <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+            Level 4, Nariman Point, Marine Drive<br>
+            Mumbai, Maharashtra 400021<br>
+            Monday — Saturday: 10:30 AM – 7:30 PM IST<br>
+            Email: concierge@genzstoreapparel.com
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>GENZSTORE</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; max-width: 320px; line-height: 1.7;">
+            Mumbai's definitive luxury fashion house. Sculpted silhouettes crafted from artisanal natural textiles, tailored for the cosmopolitan spirit.
+          </p>
+        </div>
+        <div class="footer-links-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="shop.html">Shop All</a></li>
+            <li><a href="shop.html?category=outerwear">Outerwear</a></li>
+            <li><a href="cart.html">View Bag</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>GenZStore</h4>
+          <ul>
+            <li><a href="about.html">About Maison</a></li>
+            <li><a href="contact.html">Concierge Care</a></li>
+            <li><a href="checkout.html">Checkout Demo</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Privilege Circle</h4>
+          <form class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Your email address" required>
+            <button type="submit" class="btn btn-primary" style="padding: 0.75rem 1.25rem;">Join</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 GENZSTORE INC. ALL RIGHTS RESERVED.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    function setSubject(subjectText) {
+      const subjectInput = document.getElementById('contact-subject');
+      if (subjectInput) {
+        subjectInput.value = subjectText;
+      }
+      document.querySelectorAll('.concierge-card').forEach(c => c.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+    }
+  </script>
+</body>
+</html>

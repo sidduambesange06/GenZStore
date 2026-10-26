@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed — GENZSTORE</title>
+  <meta name="description" content="Your GenZStore order has been confirmed. Thank you for shopping with us.">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .confirmation-wrapper {
+      min-height: calc(100vh - 12rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem var(--container-padding);
+    }
+    .confirmation-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: clamp(2rem, 5vw, 4rem);
+      max-width: 640px;
+      width: 100%;
+      text-align: center;
+    }
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--success);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      animation: scaleIn 0.5s var(--ease-spring) forwards;
+    }
+    @keyframes scaleIn {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    .order-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .order-meta-row:last-child { border-bottom: none; }
+    .order-meta-label { color: var(--text-secondary); }
+    .order-meta-value { font-weight: 500; font-family: monospace; font-size: 0.85rem; word-break: break-all; }
+    .steps-track {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin: 2.5rem 0;
+      position: relative;
+    }
+    .steps-track::before {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: var(--border);
+    }
+    .step-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      z-index: 1;
+      flex: 1;
+    }
+    .step-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--canvas);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .step-dot.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--white);
+    }
+    .step-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+    .step-node:first-child .step-dot.active ~ .step-label,
+    .step-node.done .step-label { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <!-- Minimal Header -->
+  <header style="border-bottom: 1px solid var(--border); padding: 1.25rem 0; background: var(--canvas);">
+    <div class="container" style="display: flex; align-items: center; justify-content: center;">
+      <a href="index.html" class="brand-logo" style="font-size: 1.5rem;">GENZSTORE</a>
+    </div>
+  </header>
+
+  <main class="confirmation-wrapper">
+    <div class="confirmation-card reveal-fade-up">
+
+      <!-- Success Icon -->
+      <div class="success-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+      </div>
+
+      <span class="eyebrow">Thank You</span>
+      <h1 style="font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 0.75rem;">Order Confirmed</h1>
+      <p style="color: var(--text-secondary); margin-bottom: 2.5rem; line-height: 1.7;">
+        Your GenZStore order has been placed successfully. A confirmation has been sent to your email address. Our team will prepare your garments with care.
+      </p>
+
+      <!-- Order Tracking Steps -->
+      <div class="steps-track">
+        <div class="step-node done">
+          <div class="step-dot active">✓</div>
+          <span class="step-label">Confirmed</span>
+        </div>
+        <div class="step-node">
+          <div class="step-dot">2</div>
+          <span class="step-label">Processing</span>
+        </div>
+        <div class="step-node">
+          <div class="step-dot">3</div>
+          <span class="step-label">Dispatched</span>
+        </div>
+        <div class="step-node">
+          <div class="step-dot">4</div>
+          <span class="step-label">Delivered</span>
+        </div>
+      </div>
+
+      <!-- Order Summary from URL params -->
+      <div style="background: var(--canvas); border-radius: var(--radius-sm); padding: 1.5rem; margin-bottom: 2rem; text-align: left;" id="order-details-block">
+        <!-- Populated by JS below -->
+      </div>
+
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
+        <a href="contact.html" class="btn btn-secondary">Contact Concierge</a>
+      </div>
+
+      <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2rem; line-height: 1.6;">
+        Estimated delivery: 3–7 business days. Track your order using the Payment ID above.<br>
+        Questions? Reach us at <a href="mailto:care@genzstore.in" style="color: var(--accent);">care@genzstore.in</a>
+      </p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer style="border-top: 1px solid var(--border); padding: 1.5rem 0; background: var(--surface);">
+    <div class="container footer-bottom" style="padding-top: 0; border: none;">
+      <div>© 2026 GENZSTORE INC.</div>
+      <div style="display: flex; gap: 1.5rem;">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Parse order details from URL params or localStorage fallback
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const paymentId  = params.get('payment_id') || localStorage.getItem('last_payment_id') || 'ATL-' + Date.now();
+      const orderId    = params.get('order_id')   || localStorage.getItem('last_order_id')   || '—';
+      const amountRaw  = params.get('amount')      || localStorage.getItem('last_order_amount') || '0';
+      const amount     = parseInt(amountRaw, 10);
+
+      const block = document.getElementById('order-details-block');
+      if (block) {
+        block.innerHTML = `
+          <div class="order-meta-row">
+            <span class="order-meta-label">Payment ID</span>
+            <span class="order-meta-value">${paymentId}</span>
+          </div>
+          <div class="order-meta-row">
+            <span class="order-meta-label">Razorpay Order ID</span>
+            <span class="order-meta-value">${orderId}</span>
+          </div>
+          <div class="order-meta-row">
+            <span class="order-meta-label">Amount Paid</span>
+            <span class="order-meta-value" style="font-size: 1rem; font-family: var(--font-body); font-weight: 600; color: var(--success);">₹${amount.toLocaleString('en-IN')}</span>
+          </div>
+          <div class="order-meta-row">
+            <span class="order-meta-label">Status</span>
+            <span class="order-meta-value" style="color: var(--success); font-family: var(--font-body);">Payment Verified ✓</span>
+          </div>
+        `;
+      }
+
+      // Trigger scroll reveal
+      setTimeout(() => {
+        document.querySelectorAll('.reveal-fade-up').forEach(el => el.classList.add('is-revealed'));
+      }, 50);
+    });
+  </script>
+</body>
+</html>

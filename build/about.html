@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>In-House Design & Production Studio — GENZSTORE</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .about-hero {
+      padding: clamp(3rem, 6vw, 6rem) 0 3rem;
+      text-align: center;
+    }
+    .about-editorial-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+      align-items: center;
+      margin: 4rem 0;
+    }
+    @media (min-width: 992px) {
+      .about-editorial-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .about-editorial-grid.reversed .about-text-col {
+        order: 2;
+      }
+      .about-editorial-grid.reversed .about-media-col {
+        order: 1;
+      }
+    }
+    .quote-box {
+      background-color: var(--surface);
+      border-left: 2px solid var(--accent);
+      padding: 3rem;
+      margin: 4rem 0;
+      text-align: center;
+    }
+    .quote-text {
+      font-family: var(--font-heading);
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      font-style: italic;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement -->
+  <div class="announcement-bar">
+    <div class="ticker-track">
+      <span>GENZSTORE Mumbai In-House Studio & Workshop</span>
+      <span>•</span>
+      <span>100% In-House Design & Ethical Production</span>
+      <span>•</span>
+      <span>Complimentary Delivery Across Mumbai & Pan-India</span>
+      <span>•</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand-logo">GENZSTORE</a>
+
+      <div class="header-left">
+        <button class="menu-toggle" aria-label="Toggle Navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="desktop-nav">
+          <a href="shop.html?gender=women" class="nav-link">Women</a>
+          <a href="shop.html?gender=men" class="nav-link">Men</a>
+          <a href="shop.html" class="nav-link">Shop All</a>
+          <a href="about.html" class="nav-link">In-House Studio</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+      </div>
+
+      <div class="header-right">
+        <button type="button" class="header-action-btn search-toggle-btn" aria-label="Search Collection" title="Search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+        <button type="button" class="header-action-btn wishlist-toggle-btn" aria-label="Saved Pieces" title="Saved Pieces">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="wishlist-count-badge">0</span>
+        </button>
+        <a href="cart.html" class="header-action-btn" aria-label="Shopping Bag" title="Shopping Bag">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count-badge">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer">
+    <button class="drawer-close" style="align-self: flex-end; padding: 0.5rem;" aria-label="Close Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <div class="mobile-nav-links">
+      <a href="index.html">Home</a>
+      <a href="shop.html?gender=women">Women's Collection</a>
+      <a href="shop.html?gender=men">Men's Collection</a>
+      <a href="shop.html">Shop All</a>
+      <a href="about.html">In-House Studio</a>
+      <a href="contact.html">Contact</a>
+      <a href="#" class="wishlist-toggle-btn">Saved Pieces (<span class="mobile-wishlist-count">0</span>)</a>
+      <a href="cart.html">Shopping Bag (<span class="mobile-cart-count">0</span>)</a>
+      <a href="checkout.html">Direct Checkout</a>
+    </div>
+  </div>
+
+  <main class="main-content container">
+    <div class="about-hero reveal-fade-up">
+      <span class="eyebrow">Mumbai In-House Studio</span>
+      <h1>Designed, Cut & Crafted <br><span class="serif-italic">Under One Roof.</span></h1>
+      <p style="color: var(--text-secondary); max-width: 640px; margin: 1.5rem auto 0; font-size: 1.05rem; line-height: 1.8;">
+        GENZSTORE operates our own proprietary design studio and garment production line in Mumbai. Every piece is drafted, sampled, hand-cut, and precision-tailored in-house.
+      </p>
+    </div>
+
+    <!-- Editorial Block 1 -->
+    <div class="about-editorial-grid reveal-fade-up">
+      <div class="about-text-col">
+        <span class="eyebrow">In-House Production Line</span>
+        <h2 style="margin-bottom: 1.25rem;">From Initial Sketch to Final Stitch</h2>
+        <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.25rem;">
+          We reject third-party white-labeling and mass-market factory outsourcing. At GENZSTORE, our in-house patternmakers and master tailors construct every silhouette in small, numbered batches right in Mumbai.
+        </p>
+        <p style="color: var(--text-secondary); line-height: 1.8;">
+          This vertical in-house integration gives us obsessive control over seam durability, drape balance, and premium tactile finishes without intermediate markups.
+        </p>
+      </div>
+      <div class="about-media-col">
+        <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1000&q=80" alt="In-House Production Line" style="border-radius: var(--radius-sm); width: 100%; aspect-ratio: 4/3; object-fit: cover;">
+      </div>
+    </div>
+
+    <!-- Editorial Quote -->
+    <div class="quote-box reveal-fade-up">
+      <div class="quote-text">
+        "By owning our design studio and production floor in Mumbai, we create contemporary Gen-Z luxury garments that rival international runway houses at honest direct pricing."
+      </div>
+      <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 600;">
+        — GENZSTORE Mumbai Design Collective
+      </div>
+    </div>
+
+    <!-- Editorial Block 2 -->
+    <div class="about-editorial-grid reversed reveal-fade-up" id="sustainability">
+      <div class="about-text-col">
+        <span class="eyebrow">Zero-Waste Craftsmanship</span>
+        <h2 style="margin-bottom: 1.25rem;">Artisanal Natural Textiles</h2>
+        <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.25rem;">
+          Our textiles are spun from 100% natural fibers: organic wool, certified mulberry silk, and hand-finished French linen. In our workshop, digital precision pattern-cutting reduces textile off-cuts to under 3%.
+        </p>
+        <p style="color: var(--text-secondary); line-height: 1.8;">
+          Every remaining organic remnant is upcycled into dustbags and structural canvas pocketing.
+        </p>
+      </div>
+      <div class="about-media-col">
+        <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=1000&q=80" alt="Pattern Cutting in Mumbai Studio" style="border-radius: var(--radius-sm); width: 100%; aspect-ratio: 4/3; object-fit: cover;">
+      </div>
+    </div>
+
+    <div style="text-align: center; margin: 5rem 0;">
+      <a href="shop.html" class="btn btn-primary">Explore In-House Collections</a>
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>GENZSTORE</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; max-width: 320px; line-height: 1.7;">
+            Mumbai's definitive luxury fashion house. Sculpted silhouettes crafted from artisanal natural textiles, tailored for the cosmopolitan spirit.
+          </p>
+        </div>
+        <div class="footer-links-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="shop.html">Shop All</a></li>
+            <li><a href="shop.html?category=outerwear">Outerwear</a></li>
+            <li><a href="shop.html?category=knitwear">Knitwear</a></li>
+            <li><a href="cart.html">View Bag</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>GENZSTORE</h4>
+          <ul>
+            <li><a href="about.html">In-House Studio</a></li>
+            <li><a href="contact.html">Concierge Care</a></li>
+            <li><a href="contact.html#faq">Shipping & Returns</a></li>
+            <li><a href="checkout.html">Checkout Demo</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Privilege Circle</h4>
+          <form class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Your email address" required>
+            <button type="submit" class="btn btn-primary" style="padding: 0.75rem 1.25rem;">Join</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 GENZSTORE INC. ALL RIGHTS RESERVED.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

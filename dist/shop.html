@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalog & Collection — GENZSTORE</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .catalog-header {
+      padding: clamp(3rem, 5vw, 5rem) 0 2rem;
+      text-align: center;
+    }
+    .catalog-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+      padding: 1.25rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2.5rem;
+      position: relative;
+      background: transparent;
+      z-index: 5;
+    }
+    .category-pills {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+    .category-pill {
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-primary);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all var(--duration-fast);
+    }
+    .category-pill.active, .category-pill:hover {
+      background: var(--text-primary);
+      color: var(--canvas);
+      border-color: var(--text-primary);
+    }
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem 1rem;
+      transition: all 0.3s ease;
+    }
+    @media (min-width: 768px) {
+      .catalog-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (min-width: 992px) {
+      .catalog-grid.col-4 {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.75rem 1.25rem;
+      }
+      .catalog-grid.col-2 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem;
+      }
+    }
+    .product-card {
+      margin-bottom: 0.5rem;
+    }
+    .product-media {
+      aspect-ratio: 3 / 4 !important;
+      max-height: 360px !important;
+      border-radius: var(--radius-sm);
+    }
+    .product-title {
+      font-size: 0.88rem !important;
+      margin-bottom: 0.2rem !important;
+      font-weight: 500;
+    }
+    .product-price {
+      font-size: 0.88rem !important;
+      font-weight: 600;
+    }
+    .color-swatches {
+      margin-top: 0.25rem;
+    }
+    .view-switcher {
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    @media (min-width: 992px) {
+      .view-switcher {
+        display: flex;
+      }
+    }
+    .view-btn {
+      padding: 0.4rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+    .view-btn.active {
+      background: var(--text-primary);
+      color: var(--canvas);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Marquee Ticker -->
+  <div class="announcement-bar">
+    <div class="ticker-track">
+      <span>Free express delivery on all orders over ₹1,500</span>
+      <span>•</span>
+      <span>Pre-Order GenZStore Capsule 2026</span>
+      <span>•</span>
+      <span>30-Day Hassle-Free Exchange Guarantee</span>
+      <span>•</span>
+      <span>Free express delivery on all orders over ₹1,500</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand-logo">GENZSTORE</a>
+
+      <div class="header-left">
+        <button class="menu-toggle" aria-label="Toggle Navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="desktop-nav">
+          <a href="shop.html?gender=women" class="nav-link">Women</a>
+          <a href="shop.html?gender=men" class="nav-link">Men</a>
+          <a href="shop.html" class="nav-link">Shop All</a>
+          <a href="about.html" class="nav-link">In-House Studio</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+      </div>
+
+      <div class="header-right">
+        <button type="button" class="header-action-btn search-toggle-btn" aria-label="Search Collection" title="Search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+        <button type="button" class="header-action-btn wishlist-toggle-btn" aria-label="Saved Pieces" title="Saved Pieces">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="wishlist-count-badge">0</span>
+        </button>
+        <a href="cart.html" class="header-action-btn" aria-label="Shopping Bag" title="Shopping Bag">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count-badge">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer">
+    <button class="drawer-close" style="align-self: flex-end; padding: 0.5rem;" aria-label="Close Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <div class="mobile-nav-links">
+      <a href="index.html">Home</a>
+      <a href="shop.html?gender=women">Women's Collection</a>
+      <a href="shop.html?gender=men">Men's Collection</a>
+      <a href="shop.html">Shop All</a>
+      <a href="about.html">In-House Studio</a>
+      <a href="contact.html">Contact</a>
+      <a href="cart.html">Shopping Bag</a>
+      <a href="checkout.html">Direct Checkout</a>
+    </div>
+  </div>
+
+  <main class="main-content container">
+    <!-- Header -->
+    <div class="catalog-header reveal-fade-up">
+      <span class="eyebrow">Autumn / Winter Ready-to-Wear</span>
+      <h1>The Complete Collection</h1>
+      <p style="color: var(--text-secondary); max-width: 540px; margin: 1rem auto 0; font-size: 0.95rem;">
+        Refined silhouettes cut from artisanal natural textiles. Each piece is designed to be worn across years, not seasons.
+      </p>
+    </div>
+
+    <!-- Controls & Filters Bar -->
+    <div class="catalog-controls reveal-fade-up">
+      <div class="category-pills">
+        <!-- Gender Filter Pills -->
+        <button class="category-pill gender-pill active" data-gender="all">All</button>
+        <button class="category-pill gender-pill" data-gender="women">Women</button>
+        <button class="category-pill gender-pill" data-gender="men">Men</button>
+        <span style="display: inline-block; width: 1px; height: 20px; background: var(--border); margin: 0 0.35rem; align-self: center;"></span>
+        <!-- Category Filter Pills -->
+        <button class="category-pill cat-pill active" data-category="all">All Garments</button>
+        <button class="category-pill cat-pill" data-category="outerwear">Outerwear</button>
+        <button class="category-pill cat-pill" data-category="knitwear">Knitwear</button>
+        <button class="category-pill cat-pill" data-category="tailoring">Tailoring</button>
+        <button class="category-pill cat-pill" data-category="linen">Linen & Silks</button>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+        <input
+          type="search"
+          id="catalog-search"
+          placeholder="Search garments…"
+          style="background: var(--canvas); border: 1px solid var(--border); padding: 0.4rem 0.8rem; border-radius: var(--radius-sm); font-size: 0.8rem; width: 170px; transition: border-color var(--duration-fast);"
+          aria-label="Search catalog"
+        >
+        <select id="sort-select" style="background: var(--canvas); border: 1px solid var(--border); padding: 0.4rem 0.8rem; border-radius: var(--radius-sm); font-size: 0.8rem; cursor: pointer;" aria-label="Sort products">
+          <option value="featured">Sort: Featured</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+        </select>
+        <span style="font-size: 0.8rem; color: var(--text-secondary);" id="item-counter">Showing 8 of 8 items</span>
+        <div class="view-switcher">
+          <button class="view-btn active" id="view-4col" title="Dense View">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </button>
+          <button class="view-btn" id="view-2col" title="Editorial View">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="18"/><rect x="14" y="3" width="7" height="18"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="catalog-grid col-4" id="catalog-products">
+      <!-- WOMEN 1: Trench Coat -->
+      <div class="product-card" data-category="outerwear" data-gender="women" data-id="w1" data-color="Bone Greige">
+        <div class="product-media">
+          <span class="product-badge">Iconic</span>
+          <button class="wishlist-heart-btn" aria-label="Add to Wishlist">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </button>
+          <a href="product.html">
+            <img class="primary-img" src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=600&q=75" alt="Mulberry Silk Trench Coat">
+            <img class="secondary-img" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Silk Trench Details">
+          </a>
+          <div class="quick-add-drawer">
+            <div class="quick-sizes-title">Quick Select Size</div>
+            <div class="quick-sizes-list">
+              <button class="quick-size-pill">XS</button>
+              <button class="quick-size-pill">S</button>
+              <button class="quick-size-pill">M</button>
+              <button class="quick-size-pill">L</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <a href="product.html" class="product-title">Mulberry Silk Trench Coat</a>
+          <span class="product-price">₹1,850</span>
+          <div class="color-swatches">
+            <span class="color-dot active" style="background: #DDD5CA;"></span>
+            <span class="color-dot" style="background: #2C2A29;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- WOMEN 2: Cashmere Mockneck -->
+      <div class="product-card" data-category="knitwear" data-gender="women" data-id="w2" data-color="Warm Taupe">
+        <div class="product-media">
+          <span class="product-badge">New</span>
+          <button class="wishlist-heart-btn" aria-label="Add to Wishlist">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </button>
+          <a href="product.html">
+            <img class="primary-img" src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=600&q=75" alt="Relaxed Cashmere Mockneck">
+            <img class="secondary-img" src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Cashmere Knit Fold">
+          </a>
+          <div class="quick-add-drawer">
+            <div class="quick-sizes-title">Quick Select Size</div>
+            <div class="quick-sizes-list">
+              <button class="quick-size-pill">S</button>
+              <button class="quick-size-pill">M</button>
+              <button class="quick-size-pill">L</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <a href="product.html" class="product-title">Relaxed Cashmere Mockneck</a>
+          <span class="product-price">₹950</span>
+          <div class="color-swatches">
+            <span class="color-dot active" style="background: #9E7D6A;"></span>
+            <span class="color-dot" style="background: #EAE4DC;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- WOMEN 3: Linen Button-Down -->
+      <div class="product-card" data-category="linen" data-gender="women" data-id="w3" data-color="Raw Ecru">
+        <div class="product-media">
+          <button class="wishlist-heart-btn" aria-label="Add to Wishlist">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </button>
+          <a href="product.html">
+            <img class="primary-img" src="https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Raw French Linen Shirt">
+            <img class="secondary-img" src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Raw Linen Texture">
+          </a>
+          <div class="quick-add-drawer">
+            <div class="quick-sizes-title">Quick Select Size</div>
+            <div class="quick-sizes-list">
+              <button class="quick-size-pill">S</button>
+              <button class="quick-size-pill">M</button>
+              <button class="quick-size-pill">L</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <a href="product.html" class="product-title">Raw French Linen Button-Down</a>
+          <span class="product-price">₹790</span>
+          <div class="color-swatches">
+            <span class="color-dot active" style="background: #F4F0EB;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- WOMEN 4: Tailored Hourglass Blazer (FEMALE SPECIFIC) -->
+      <div class="product-card" data-category="tailoring" data-gender="women" data-id="w4" data-color="Canyon Khaki">
+        <div class="product-media">
+          <span class="product-badge">Editorial</span>
+          <button class="wishlist-heart-btn" aria-label="Add to Wishlist">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </button>
+          <a href="product.html">
+            <img class="primary-img" src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Women Tailored Hourglass Blazer">
+            <img class="secondary-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Women Blazer Silhouette">
+          </a>
+          <div class="quick-add-drawer">
+            <div class="quick-sizes-title">Quick Select Size</div>
+            <div class="quick-sizes-list">
+              <button class="quick-size-pill">XS</button>
+              <button class="quick-size-pill">S</button>
+              <button class="quick-size-pill">M</button>
+              <button class="quick-size-pill">L</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <a href="product.html" class="product-title">Tailored Hourglass Twill Blazer</a>
+          <span class="product-price">₹1,720</span>
+          <div class="color-swatches">
+            <span class="color-dot active" style="background: #C88A65;"></span>
+            <span class="color-dot" style="background: #2C2A29;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- WOMEN 5: Bias-Cut Slip Gown -->
+      <div class="product-card" data-category="linen" data-gender="women" data-id="w5" data-color="Midnight Navy">
+        <div class="product-media">
+          <button class="wishlist-heart-btn" aria-label="Add to Wishlist">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </button>
+          <a href="product.html">
+            <img class="primary-img" src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Bias-Cut Silk Slip Gown">
+            <img class="secondary-img" src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Silk Dress Movement">
+          </a>
+          <div class="quick-add-drawer">
+            <div class="quick-sizes-title">Quick Select Size</div>
+            <div class="quick-sizes-list">
+              <button class="quick-size-pill">XS</button>
+              <button class="quick-size-pill">S</button>
+              <button class="quick-size-pill">M</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <a href="product.html" class="product-title">Bias-Cut Mulberry Silk Slip Gown</a>
+          <span class="product-price">₹1,480</span>
+          <div class="color-swatches">
+            <span class="color-dot active" style="background: #2C2A29;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- WOMEN 6: Wide-Leg Palazzo Pants -->
+      <div class="product-card" data-category="tailoring" data-gender="women" data-id="w6" data-color="Ivory Alabaster">
+        <div class="product-media">
+          <button class="wishlist-heart-btn" aria-label="Add to Wishlist">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </button>
+          <a href="product.html">
+            <img class="primary-img" src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Wide-Leg Palazzo Trousers">
+            <img class="secondary-img" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Trousers Draped">
+          </a>
+          <div class="quick-add-drawer">
+            <div class="quick-sizes-title">Quick Select Size</div>
+            <div class="quick-sizes-list">
+              <button class="quick-size-pill">26</button>
+              <button class="quick-size-pill">28</button>
+              <button class="quick-size-pill">30</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <a href="product.html" class="product-title">Fluid Pleated Palazzo Trousers</a>
+          <span class="product-price">₹1,190</span>
+          <div class="color-swatches">
+            <span class="color-dot active" style="background: #EAE4DC;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MEN 1: Pleated Merino Trousers -->
+      <div class="product-card" data-category="tailoring" data-gender="men" data-id="m1" data-color="Soft Charcoal">
+        <div class="product-media">
+          <button class="wishlist-heart-btn" aria-label="Add to Wishlist">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </button>
+          <a href="product.html">
+            <img class="primary-img" src="https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Men Wool Trousers">
+            <img class="secondary-img" src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Trousers Fabric">
+          </a>
+          <div class="quick-add-drawer">
+            <div class="quick-sizes-title">Quick Select Size</div>
+            <div class="quick-sizes-list">
+              <button class="quick-size-pill">30</button>
+              <button class="quick-size-pill">32</button>
+              <button class="quick-size-pill">34</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <a href="product.html" class="product-title">Pleated Merino Wool Trousers</a>
+          <span class="product-price">₹1,120</span>
+          <div class="color-swatches">
+            <span class="color-dot active" style="background: #2C2A29;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MEN 2: Leather Blouson Jacket -->
+      <div class="product-card" data-category="outerwear" data-gender="men" data-id="m2" data-color="Black Onyx">
+        <div class="product-media">
+          <span class="product-badge">Hand-Crafted</span>
+          <button class="wishlist-heart-btn" aria-label="Add to Wishlist">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </button>
+          <a href="product.html">
+            <img class="primary-img" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Men Leather Blouson">
+            <img class="secondary-img" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Leather Jacket Texture">
+          </a>
+          <div class="quick-add-drawer">
+            <div class="quick-sizes-title">Quick Select Size</div>
+            <div class="quick-sizes-list">
+              <button class="quick-size-pill">M</button>
+              <button class="quick-size-pill">L</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <a href="product.html" class="product-title">Vegetable-Tanned Leather Blouson</a>
+          <span class="product-price">₹2,450</span>
+          <div class="color-swatches">
+            <span class="color-dot active" style="background: #1A1A1A;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MEN 3: Men's Deconstructed Twill Blazer (MEN SPECIFIC) -->
+      <div class="product-card" data-category="tailoring" data-gender="men" data-id="m3" data-color="Canyon Khaki">
+        <div class="product-media">
+          <button class="wishlist-heart-btn" aria-label="Add to Wishlist">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </button>
+          <a href="product.html">
+            <img class="primary-img" src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Men Twill Blazer">
+            <img class="secondary-img" src="https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Suit Detail">
+          </a>
+          <div class="quick-add-drawer">
+            <div class="quick-sizes-title">Quick Select Size</div>
+            <div class="quick-sizes-list">
+              <button class="quick-size-pill">38R</button>
+              <button class="quick-size-pill">40R</button>
+              <button class="quick-size-pill">42R</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <a href="product.html" class="product-title">Men's Deconstructed Twill Blazer</a>
+          <span class="product-price">₹1,650</span>
+          <div class="color-swatches">
+            <span class="color-dot active" style="background: #C88A65;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MEN 4: Cardigan -->
+      <div class="product-card" data-category="knitwear" data-gender="men" data-id="m4" data-color="Muted Sage">
+        <div class="product-media">
+          <button class="wishlist-heart-btn" aria-label="Add to Wishlist">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </button>
+          <a href="product.html">
+            <img class="primary-img" src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Waffle Knit Cardigan">
+            <img class="secondary-img" src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Cardigan Fold">
+          </a>
+          <div class="quick-add-drawer">
+            <div class="quick-sizes-title">Quick Select Size</div>
+            <div class="quick-sizes-list">
+              <button class="quick-size-pill">S</button>
+              <button class="quick-size-pill">M</button>
+              <button class="quick-size-pill">L</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <a href="product.html" class="product-title">Waffle Knit Heavy Cardigan</a>
+          <span class="product-price">₹1,050</span>
+          <div class="color-swatches">
+            <span class="color-dot active" style="background: #3F4F34;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MEN 5: Crisp Poplin Overshirt -->
+      <div class="product-card" data-category="linen" data-gender="men" data-id="m5" data-color="Crisp Bone">
+        <div class="product-media">
+          <button class="wishlist-heart-btn" aria-label="Add to Wishlist">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </button>
+          <a href="product.html">
+            <img class="primary-img" src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Men Poplin Overshirt">
+            <img class="secondary-img" src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Shirt Collar Detail">
+          </a>
+          <div class="quick-add-drawer">
+            <div class="quick-sizes-title">Quick Select Size</div>
+            <div class="quick-sizes-list">
+              <button class="quick-size-pill">M</button>
+              <button class="quick-size-pill">L</button>
+              <button class="quick-size-pill">XL</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <a href="product.html" class="product-title">Raw Crisp Poplin Overshirt</a>
+          <span class="product-price">₹890</span>
+          <div class="color-swatches">
+            <span class="color-dot active" style="background: #F4F0EB;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MEN 6: Japanese Selvedge Denim -->
+      <div class="product-card" data-category="tailoring" data-gender="men" data-id="m6" data-color="Raw Indigo">
+        <div class="product-media">
+          <button class="wishlist-heart-btn" aria-label="Add to Wishlist">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </button>
+          <a href="product.html">
+            <img class="primary-img" src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Japanese Selvedge Denim">
+            <img class="secondary-img" src="https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=600&q=75" loading="lazy" decoding="async" alt="Denim Weave">
+          </a>
+          <div class="quick-add-drawer">
+            <div class="quick-sizes-title">Quick Select Size</div>
+            <div class="quick-sizes-list">
+              <button class="quick-size-pill">30</button>
+              <button class="quick-size-pill">32</button>
+              <button class="quick-size-pill">34</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <a href="product.html" class="product-title">Relaxed Japanese Selvedge Denim</a>
+          <span class="product-price">₹1,350</span>
+          <div class="color-swatches">
+            <span class="color-dot active" style="background: #1F2937;"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Load More -->
+    <div style="text-align: center; margin: 4rem 0 6rem;">
+      <button class="btn btn-secondary" onclick="alert('All current collection pieces are loaded.')">Loaded All Available Pieces</button>
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>GENZSTORE</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; max-width: 320px; line-height: 1.7;">
+            Mumbai's definitive luxury fashion house. Sculpted silhouettes crafted from artisanal natural textiles, tailored for the cosmopolitan spirit.
+          </p>
+        </div>
+        <div class="footer-links-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="shop.html">Shop All</a></li>
+            <li><a href="shop.html?category=outerwear">Outerwear</a></li>
+            <li><a href="shop.html?category=knitwear">Knitwear</a></li>
+            <li><a href="shop.html?category=tailoring">Tailoring</a></li>
+            <li><a href="cart.html">View Bag</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>GenZStore</h4>
+          <ul>
+            <li><a href="about.html">About Maison</a></li>
+            <li><a href="contact.html">Concierge Care</a></li>
+            <li><a href="contact.html#faq">Shipping & Returns</a></li>
+            <li><a href="checkout.html">Checkout Demo</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Privilege Circle</h4>
+          <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6;">
+            Receive invitations to private seasonal drops and private salon viewings.
+          </p>
+          <form class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Your email address" required>
+            <button type="submit" class="btn btn-primary" style="padding: 0.75rem 1.25rem;">Join</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 GENZSTORE INC. ALL RIGHTS RESERVED.</div>
+        <div style="display: flex; gap: 1.5rem;">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Razorpay Secure</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/shop.js"></script>
+</body>
+</html>

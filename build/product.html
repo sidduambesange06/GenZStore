@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Structured Mulberry Silk Trench — GENZSTORE</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .pdp-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+      padding-top: 2rem;
+      padding-bottom: 5rem;
+    }
+    @media (min-width: 992px) {
+      .pdp-layout {
+        grid-template-columns: 1.15fr 0.85fr;
+      }
+    }
+    .pdp-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .pdp-gallery-img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+    }
+    .pdp-rail {
+      position: relative;
+    }
+    @media (min-width: 992px) {
+      .pdp-rail {
+        position: sticky;
+        top: 6.5rem;
+        align-self: start;
+      }
+    }
+    .size-picker {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 0.75rem;
+    }
+    .size-btn {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      background: var(--canvas);
+      transition: all var(--duration-fast);
+    }
+    .size-btn.active, .size-btn:hover {
+      border-color: var(--text-primary);
+      background: var(--text-primary);
+      color: var(--canvas);
+    }
+    .size-btn.disabled {
+      opacity: 0.35;
+      text-decoration: line-through;
+      cursor: not-allowed;
+    }
+    .swatch-group {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+    .swatch-item {
+      width: 24px;
+      height: 24px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      position: relative;
+    }
+    .swatch-item.active::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border: 1px solid var(--text-primary);
+      border-radius: var(--radius-full);
+    }
+    .cross-sell-bar {
+      margin-top: 3.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Marquee Ticker -->
+  <div class="announcement-bar">
+    <div class="ticker-track">
+      <span>Complimentary shipping on orders above ₹1,500</span>
+      <span>•</span>
+      <span>Edition 04: The Autumn / Winter GenZStore Collection</span>
+      <span>•</span>
+      <span>Complimentary shipping on orders above ₹1,500</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand-logo">GENZSTORE</a>
+
+      <div class="header-left">
+        <button class="menu-toggle" aria-label="Toggle Navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="desktop-nav">
+          <a href="shop.html?gender=women" class="nav-link">Women</a>
+          <a href="shop.html?gender=men" class="nav-link">Men</a>
+          <a href="shop.html" class="nav-link">Shop All</a>
+          <a href="about.html" class="nav-link">In-House Studio</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+      </div>
+
+      <div class="header-right">
+        <button type="button" class="header-action-btn search-toggle-btn" aria-label="Search Collection" title="Search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+        <button type="button" class="header-action-btn wishlist-toggle-btn" aria-label="Saved Pieces" title="Saved Pieces">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="wishlist-count-badge">0</span>
+        </button>
+        <a href="cart.html" class="header-action-btn" aria-label="Shopping Bag" title="Shopping Bag">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count-badge">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer">
+    <button class="drawer-close" style="align-self: flex-end; padding: 0.5rem;" aria-label="Close Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <div class="mobile-nav-links">
+      <a href="index.html">Home</a>
+      <a href="shop.html?gender=women">Women's Collection</a>
+      <a href="shop.html?gender=men">Men's Collection</a>
+      <a href="shop.html">Shop All</a>
+      <a href="about.html">In-House Studio</a>
+      <a href="contact.html">Contact</a>
+      <a href="#" class="wishlist-toggle-btn">Saved Pieces (<span class="mobile-wishlist-count">0</span>)</a>
+      <a href="cart.html">Shopping Bag (<span class="mobile-cart-count">0</span>)</a>
+      <a href="checkout.html">Direct Checkout</a>
+    </div>
+  </div>
+
+  <main class="main-content container">
+    <!-- Breadcrumbs -->
+    <div style="font-size: 0.8rem; color: var(--text-secondary); padding: 1.5rem 0 0.5rem;">
+      <a href="index.html">Home</a> / <a href="shop.html">Collection</a> / <a href="shop.html?category=outerwear">Outerwear</a> / <span style="color: var(--text-primary);">Mulberry Silk Trench</span>
+    </div>
+
+    <div class="pdp-layout">
+      <!-- Left: Visual Showcase (Multi-Angle Gallery) -->
+      <div class="pdp-gallery">
+        <img class="pdp-gallery-img" src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=1200&q=85" alt="Mulberry Silk Trench Front Full">
+        <img class="pdp-gallery-img" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=85" alt="Mulberry Silk Trench Back Drapery">
+        <img class="pdp-gallery-img" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=1200&q=85" alt="Mulberry Silk Trench Collar Profile">
+        <img class="pdp-gallery-img" src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1200&q=85" alt="Mulberry Silk Fabric Weave Detail">
+      </div>
+
+      <!-- Right: Sticky Purchase Rail -->
+      <div class="pdp-rail">
+        <span class="eyebrow">Edition 04 • Limited Batch</span>
+        <h1 style="font-size: clamp(2rem, 3.5vw, 3rem); margin-bottom: 0.75rem;">Mulberry Silk Draped Trench Coat</h1>
+        <div style="font-size: 1.35rem; font-weight: 500; margin-bottom: 0.5rem;">₹1,850</div>
+        <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 2rem;">
+          Includes complimentary carbon-neutral shipping & duties.
+        </p>
+
+        <!-- Color Selection -->
+        <div style="margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
+            <span>Color: <strong id="selected-color-label">Bone Greige</strong></span>
+          </div>
+          <div class="swatch-group">
+            <div class="swatch-item active" style="background: #DDD5CA;" data-color="Bone Greige"></div>
+            <div class="swatch-item" style="background: #2C2A29;" data-color="Pitch Charcoal"></div>
+            <div class="swatch-item" style="background: #9E7D6A;" data-color="Smoked Umber"></div>
+          </div>
+        </div>
+
+        <!-- Size Selection -->
+        <div style="margin-bottom: 2rem;">
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; align-items: baseline;">
+            <span>Select Size</span>
+            <button style="text-decoration: underline; font-size: 0.8rem; color: var(--text-secondary);" onclick="alert('Fit Guide: Model is 5\'10\'\' / 178cm wearing size S. This garment fits true to relaxed editorial sizing.')">Fit Guide</button>
+          </div>
+          <div class="size-picker">
+            <button class="size-btn" data-size="XS">XS</button>
+            <button class="size-btn active" data-size="S">S</button>
+            <button class="size-btn" data-size="M">M</button>
+            <button class="size-btn" data-size="L">L</button>
+            <button class="size-btn disabled" data-size="XL" title="Sold Out">XL</button>
+          </div>
+        </div>
+
+        <!-- Purchase Actions -->
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2.5rem;">
+          <button id="pdp-add-to-bag" class="btn btn-primary btn-full" style="padding: 1.15rem;">
+            Add to Shopping Bag • ₹1,850
+          </button>
+          <a href="checkout.html" class="btn btn-secondary btn-full">
+            Proceed Directly to Checkout
+          </a>
+        </div>
+
+        <!-- Accordions -->
+        <div>
+          <div class="accordion-item is-open">
+            <button class="accordion-trigger">
+              <span>Materials & Artisanal Care</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              Cut from 100% GOTS-Certified Mulberry Silk woven in Lyon, France. Features storm flap detailing, natural horn buttons, and unlined construction for fluid summer-to-autumn draping. Dry clean gently using environmentally friendly solvents.
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-trigger">
+              <span>Fit & Tailoring Dimensions</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              Designed with a relaxed, dropped-shoulder silhouette intended to be styled open or cinched with the removable tie belt. Size S measures 118 cm from high shoulder to hemline.
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-trigger">
+              <span>Complimentary Shipping & Returns</span>
+              <span class="accordion-icon">+</span>
+            </button>
+            <div class="accordion-content">
+              Delivered within 2–4 business days across India via insured courier. We offer 30-day effortless returns and complimentary size exchanges in original packaging.
+            </div>
+          </div>
+        </div>
+
+        <!-- Style With / Cross Merchandising -->
+        <div class="cross-sell-bar">
+          <span class="eyebrow">Complete the Look</span>
+          <div style="display: flex; gap: 1rem; align-items: center; margin-top: 1rem;">
+            <img src="https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=200&q=80" alt="Wool Trousers" style="width: 70px; height: 90px; object-fit: cover; border-radius: var(--radius-sm);">
+            <div>
+              <h5 style="font-family: var(--font-body); font-size: 0.9rem; margin-bottom: 0.2rem;">Pleated Merino Wool Trousers</h5>
+              <div style="font-size: 0.85rem; font-weight: 500;">₹1,120</div>
+              <a href="shop.html" class="link-arrow" style="font-size: 0.75rem; margin-top: 0.4rem;">View Garment</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>GENZSTORE</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; max-width: 320px; line-height: 1.7;">
+            Mumbai's definitive luxury fashion house. Sculpted silhouettes crafted from artisanal natural textiles, tailored for the cosmopolitan spirit.
+          </p>
+        </div>
+        <div class="footer-links-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="shop.html">Shop All</a></li>
+            <li><a href="shop.html?category=outerwear">Outerwear</a></li>
+            <li><a href="shop.html?category=knitwear">Knitwear</a></li>
+            <li><a href="shop.html?category=tailoring">Tailoring</a></li>
+            <li><a href="cart.html">View Bag</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>GenZStore</h4>
+          <ul>
+            <li><a href="about.html">About Maison</a></li>
+            <li><a href="contact.html">Concierge Care</a></li>
+            <li><a href="contact.html#faq">Shipping & Returns</a></li>
+            <li><a href="checkout.html">Checkout Demo</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Privilege Circle</h4>
+          <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6;">
+            Receive invitations to private seasonal drops and private salon viewings.
+          </p>
+          <form class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Your email address" required>
+            <button type="submit" class="btn btn-primary" style="padding: 0.75rem 1.25rem;">Join</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 GENZSTORE INC. ALL RIGHTS RESERVED.</div>
+        <div style="display: flex; gap: 1.5rem;">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Razorpay Secure</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Size button selection
+    let selectedSize = 'S';
+    document.querySelectorAll('.size-btn:not(.disabled)').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedSize = btn.dataset.size;
+      });
+    });
+
+    // Swatch selection
+    let selectedColor = 'Bone Greige';
+    document.querySelectorAll('.swatch-item').forEach(swatch => {
+      swatch.addEventListener('click', () => {
+        document.querySelectorAll('.swatch-item').forEach(s => s.classList.remove('active'));
+        swatch.classList.add('active');
+        selectedColor = swatch.dataset.color;
+        document.getElementById('selected-color-label').textContent = selectedColor;
+      });
+    });
+
+    // Add to Bag action
+    const addBtn = document.getElementById('pdp-add-to-bag');
+    if (addBtn) {
+      addBtn.addEventListener('click', () => {
+        CartManager.addItem({
+          id: 'trench-01',
+          name: 'Mulberry Silk Draped Trench Coat',
+          price: 1850,
+          color: selectedColor,
+          size: selectedSize,
+          image: 'https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=600&q=80'
+        });
+      });
+    }
+  </script>
+</body>
+</html>

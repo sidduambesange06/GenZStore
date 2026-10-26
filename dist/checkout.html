@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Checkout — GENZSTORE</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <!-- Razorpay Checkout.js SDK -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    .checkout-header {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+      background-color: var(--canvas);
+    }
+    .checkout-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+      padding-top: 2.5rem;
+      padding-bottom: 5rem;
+    }
+    @media (min-width: 992px) {
+      .checkout-layout {
+        grid-template-columns: 1.2fr 0.8fr;
+      }
+    }
+    .checkout-form-section {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+    .form-control {
+      width: 100%;
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      padding: 0.85rem 1rem;
+      font-size: 0.9rem;
+      border-radius: var(--radius-sm);
+      transition: border-color var(--duration-fast);
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: var(--white);
+    }
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .checkout-summary-sidebar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 2rem;
+      position: sticky;
+      top: 2.5rem;
+    }
+    .payment-badge-box {
+      border: 1px dashed var(--accent);
+      background: rgba(200, 138, 101, 0.08);
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      margin: 1.5rem 0;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Minimalist Distraction-Free Header -->
+  <header class="checkout-header">
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+      <a href="index.html" class="brand-logo" style="font-size: 1.5rem;">GENZSTORE</a>
+      <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>256-Bit SSL Encrypted</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content container checkout-container">
+    <div class="checkout-layout">
+      <!-- Left Column: Checkout Form -->
+      <div>
+        <form id="checkout-form">
+          <!-- Step 1: Customer Contact -->
+          <div class="checkout-form-section">
+            <h3 style="font-size: 1.35rem; margin-bottom: 1.25rem;">1. Contact Information</h3>
+            <div class="form-group">
+              <label for="cust-email">Email Address</label>
+              <input type="email" id="cust-email" class="form-control" value="aarav.sharma@example.com" placeholder="name@domain.com" required>
+              <span style="font-size: 0.75rem; color: var(--text-secondary);">Order updates and invoice receipt will be sent here.</span>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="cust-name">Full Name</label>
+                <input type="text" id="cust-name" class="form-control" value="Aarav Sharma" placeholder="e.g. Aarav Sharma" required>
+              </div>
+              <div class="form-group">
+                <label for="cust-phone">Mobile Contact (for delivery)</label>
+                <input type="tel" id="cust-phone" class="form-control" value="9876543210" placeholder="10-digit number" required>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Shipping Destination -->
+          <div class="checkout-form-section">
+            <h3 style="font-size: 1.35rem; margin-bottom: 1.25rem;">2. Shipping Address</h3>
+            <div class="form-group">
+              <label for="cust-address">Street Address</label>
+              <input type="text" id="cust-address" class="form-control" value="Flat 402, Lavelle Road" placeholder="Apartment, suite, street" required>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="cust-city">City</label>
+                <input type="text" id="cust-city" class="form-control" value="Mumbai" required>
+              </div>
+              <div class="form-group">
+                <label for="cust-pincode">PIN Code</label>
+                <input type="text" id="cust-pincode" class="form-control" value="560001" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="cust-state">State / Region</label>
+              <select id="cust-state" class="form-control">
+                <option value="Karnataka" selected>Karnataka</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Delhi">Delhi NCR</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Other">Other State / Territory</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Step 3: Payment Gateway Selector -->
+          <div class="checkout-form-section">
+            <h3 style="font-size: 1.35rem; margin-bottom: 1rem;">3. Payment Method</h3>
+            <div class="payment-badge-box">
+              <div style="font-weight: 600; color: var(--accent); margin-bottom: 0.3rem;">
+                Razorpay Payment Gateway (Standard Checkout)
+              </div>
+              <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">
+                Supports UPI (Google Pay, PhonePe, Paytm, CRED), Credit/Debit Cards (Visa, Mastercard, RuPay, Amex), Netbanking & PayLater.
+              </p>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <span style="font-size: 0.75rem; background: var(--canvas); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border);">Instant UPI</span>
+                <span style="font-size: 0.75rem; background: var(--canvas); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border);">Cards</span>
+                <span style="font-size: 0.75rem; background: var(--canvas); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border);">NetBanking</span>
+              </div>
+            </div>
+
+            <button type="button" id="razorpay-pay-button" class="btn btn-primary btn-full" style="padding: 1.25rem; font-size: 0.95rem;">
+              Pay with Razorpay
+            </button>
+            <p style="text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.75rem;">
+              By clicking above, you agree to GenZStore's purchase terms. No card numbers are stored on our servers.
+            </p>
+          </div>
+        </form>
+      </div>
+
+      <!-- Right Column: Sticky Summary -->
+      <div>
+        <div class="checkout-summary-sidebar">
+          <h4 style="font-size: 1.25rem; margin-bottom: 1.5rem;">Bag Overview</h4>
+          <div id="checkout-items-list">
+            <!-- Rendered by checkout.js -->
+          </div>
+
+          <div style="margin-top: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.6rem; font-size: 0.9rem;">
+              <span style="color: var(--text-secondary);">Subtotal</span>
+              <span id="checkout-subtotal">₹0</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.6rem; font-size: 0.9rem;">
+              <span style="color: var(--text-secondary);">Carbon-Neutral Shipping</span>
+              <span id="checkout-shipping">Complimentary</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.9rem;">
+              <span style="color: var(--text-secondary);">Duties & GST</span>
+              <span>Included</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 1rem; font-size: 1.25rem; font-weight: 600;">
+              <span>Total Due</span>
+              <span id="checkout-total">₹0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/main.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>
