@@ -1,4 +1,4 @@
-/**
+﻿/**
  * GENZSTORE - Minimal Production-Ready Server
  * Zero dependencies - Pure Node.js Standard Library
  * Serves static storefront + Mock E-Commerce REST API
@@ -74,7 +74,7 @@ const server = http.createServer((req, res) => {
   let filePath = path.join(PUBLIC_DIR, pathname === '/' ? 'index.html' : pathname);
   const ext = path.extname(filePath).toLowerCase();
 
-  // Security check: prevent directory traversal
+  // Security: prevent directory traversal
   if (!filePath.startsWith(PUBLIC_DIR)) {
     res.writeHead(403);
     return res.end('Access Denied');
@@ -82,8 +82,7 @@ const server = http.createServer((req, res) => {
 
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
-      // 404 fallback to index.html if html is requested
-      if (req.headers.accept?.includes('text/html')) {
+      if (req.headers.accept && req.headers.accept.includes('text/html')) {
         const notFoundPath = path.join(PUBLIC_DIR, 'index.html');
         res.writeHead(200, { 'Content-Type': 'text/html; charset=UTF-8' });
         return fs.createReadStream(notFoundPath).pipe(res);
@@ -103,6 +102,7 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`GENZSTORE Server active at http://localhost:${PORT}`);
+// Bind 0.0.0.0 so Docker/Fly.io can route external traffic into the container
+server.listen(PORT, '0.0.0.0', () => {
+  console.log('GENZSTORE running on port ' + PORT);
 });

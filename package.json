@@ -1,7 +1,7 @@
 {
   "name": "genzstore",
   "version": "1.0.0",
-  "description": "GENZSTORE — Modern Luxury Clothing E-Commerce. Quiet luxury, sculpted silhouette.",
+  "description": "GENZSTORE - Modern Luxury Clothing E-Commerce",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
